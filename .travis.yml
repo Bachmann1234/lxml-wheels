@@ -1,0 +1,109 @@
+env:
+  global:
+  - REPO_DIR=lxml
+  - BUILD_COMMIT=master
+  - BUILD_DEPENDS="Cython"
+  - TEST_DEPENDS="beautifulsoup4 cssselect"
+  - PLAT=x86_64
+  - UNICODE_WIDTH=32
+  - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+language: python
+python: 3.5
+sudo: required
+dist: trusty
+services: docker
+matrix:
+  exclude:
+  - python: 3.5
+  include:
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.6
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.6
+    - PLAT=i686
+  - os: linux
+    env: MB_PYTHON_VERSION=2.7
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.7
+    - UNICODE_WIDTH=16
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.7
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=2.7
+    - PLAT=i686
+    - UNICODE_WIDTH=16
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.3
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.3
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.4
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.4
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.5
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.5
+    - PLAT=i686
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.6
+  - os: linux
+    env:
+    - MB_PYTHON_VERSION=3.6
+    - PLAT=i686
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=2.6
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=2.7
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.3
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.4
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.5
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.6
+before_install:
+- source multibuild/common_utils.sh
+- source multibuild/travis_steps.sh
+- before_install
+install:
+- clean_code $REPO_DIR $BUILD_COMMIT
+- build_wheel $REPO_DIR $PLAT
+script:
+- install_run $PLAT
+deploy:
+  provider: releases
+  api_key:
+    secure: kmzLSTEMMMap52GdrlKjrk4dMq87H9okMfTc2Mni2NFLmj0XZvWvy1HOsTRbW7bNTECj40fyXZhcuAWSjMh8UmTVgufkkH7X1COybldAfYiEMekh8wj4VjFNnE/i8bU9fYrVBXkVrgUe1EeK2qrEZoFzqlOI6La/kw/jYpHEqIxLTTiGFmEWCLMU5rlr72m7ozvUMQD5AwaZ8zpbGidpMTz82jqC2LGwfFKWRkvAvmLxsrM/9IrdWvIXqQ1a7TgoggYOFWveYl3d3D4w4a0dzjkZPhX10C7MdZHYu5Zm8lF6OOx3Mj81b5CIpkLzymd2hZ7JqKgsCzHbpKM2dtoqwfsuAj+4KAO6RsP3B2XAVSJbjZmGDKKt52Kl6x+U+fp6jjhfaE6NOCjGUv/kJNO8EjHfhvTU0a6A6Aring+guFmZIeVFULwYBucdN6RxAa3yjozmIie9oVzlVyA/ZiT4qEc32XDSCnIX6WfpU70YOmp9/NFdA/aFazayOemNWD1SWjv8/3I+4j+76ESDb4shY8/fBpwNcjX0DfOzd/QV78/UpK4fhUAU4Nq0OPXTEOxNsmUyD4aCldgQzs6SpkAHwLZFcxHKvgQ+aX9ViS5DS5P0399pCan6QY0/tJYArDRvO2ylxJ2tu+yu1/P+GWso8iGAnM2OSSfEP5ZadmFmqQY=
+  file_glob: true
+  file: "${TRAVIS_BUILD_DIR}/wheelhouse/*.whl"
+  on:
+    repo: Bachmann1234/lxml-wheels
