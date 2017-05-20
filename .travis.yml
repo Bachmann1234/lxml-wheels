@@ -98,4 +98,4 @@ deploy:
   file_glob: true
   file: "${TRAVIS_BUILD_DIR}/wheelhouse/*.whl"
   on:
-    repo: Bachmann1234/lxml-wheels
+    tags: true
