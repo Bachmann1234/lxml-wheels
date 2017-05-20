@@ -9,8 +9,8 @@
 function bdist_with_static_deps {
     local abs_wheelhouse=$1
     python setup.py clean
-    CFLAGS="-fPIC";export CFLAGS
-    python -u setup.py bdist_wheel --static-deps
+    #CFLAGS="-fPIC";export CFLAGS
+    make wheel_static
     cp dist/*.whl $abs_wheelhouse
 }
 
