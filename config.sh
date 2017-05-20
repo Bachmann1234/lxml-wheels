@@ -1,9 +1,21 @@
 #!/usr/bin/env bash
-function pre_build {
+# Define custom utilities
+# Test for OSX with [ -n "$IS_OSX" ]
+#function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    if [ -n "$IS_OSX" ]; then return; fi
-    yum install -y libxml2 libxlst1 libxslt1-dev python-dev
+#}
+
+function bdist_with_static_deps {
+    local abs_wheelhouse=$1
+    python setup.py clean
+    CFLAGS="-fPIC";export CFLAGS
+    python -u setup.py bdist_wheel --static-deps
+    cp dist/*.whl $abs_wheelhouse
+}
+
+function build_wheel {
+    build_wheel_cmd "bdist_with_static_deps" $@
 }
 
 function run_tests {
