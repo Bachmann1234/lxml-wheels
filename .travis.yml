@@ -70,20 +70,20 @@ matrix:
     language: generic
     osx_image: xcode6.4
     env:
-    - PYTHON_VERSION=2.6
+    - MB_PYTHON_VERSION=2.6
   - os: osx
     language: generic
     env:
     - MB_PYTHON_VERSION=2.7
   - os: osx
     language: generic
-    env:
-    - MB_PYTHON_VERSION=3.4
-  - os: osx
-    language: generic
     osx_image: xcode6.4
     env:
     - MB_PYTHON_VERSION=3.3
+  - os: osx
+    language: generic
+    env:
+    - MB_PYTHON_VERSION=3.4
   - os: osx
     language: generic
     env:
