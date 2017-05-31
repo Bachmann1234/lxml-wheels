@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # Define custom utilities
 # Test for OSX with [ -n "$IS_OSX" ]
-function pre_build {
-    if [ -n "$IS_OSX" ]; then
-        if [ ${MB_PYTHON_VERSION} == 2.6 ]; then
-            yes | pip uninstall pip
-            easy_install pip==1.2.1
-        fi
-    fi
-    pip --version
-}
+#function pre_build {
+#    if [ -n "$IS_OSX" ]; then
+#        if [ ${MB_PYTHON_VERSION} == 2.6 ]; then
+#            yes | pip uninstall pip
+#            easy_install pip==1.2.1
+#        fi
+#    fi
+#    pip --version
+#}
 
 function bdist_with_static_deps {
     local abs_wheelhouse=$1

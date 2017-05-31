@@ -68,11 +68,6 @@ matrix:
     - PLAT=i686
   - os: osx
     language: generic
-    osx_image: xcode6.4
-    env:
-    - MB_PYTHON_VERSION=2.6
-  - os: osx
-    language: generic
     env:
     - MB_PYTHON_VERSION=2.7
   - os: osx
